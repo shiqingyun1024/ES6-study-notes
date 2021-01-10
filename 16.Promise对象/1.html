@@ -6,6 +6,30 @@
     <title>学习promise</title>
 </head>
 <body>
-    
+    <script>
+        // Promise对象接受一个函数作为参数，这个函数又接受resolve和reject这两个函数作为参数
+        const promise = new Promise((resolve,reject)=>{
+               if(/* 异步操作成功 */true){
+                resolve(value);
+               }else{
+                reject(value)
+               }
+        });
+        // Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数
+        promise.then(function(value){
+          //  success
+        },function(error){
+          //  failure
+        });
+        // promise应用的实例
+        function timeout(ms){
+           return new Promise((resolve,reject)=>{
+               setTimeout(resolve,ms,'done')
+           })
+        };
+        timeout(5000).then((value)=>{
+             console.log(value);
+        })
+    </script>
 </body>
 </html>
