@@ -9,6 +9,7 @@
 
 <body>
     <script>
+        // resolve和reject的执行
         const p1 = new Promise(function (resolve, reject) {
             setTimeout(() => reject(new Error('fail')), 3000)
         })
