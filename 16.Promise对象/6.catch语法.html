@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catch语法</title>
+</head>
+<body>
+    <script>
+        /*
+          Promise.prototype.catch()方法是.then(null,rejection)或者.then(undefined,rejection)的别名，用于指定发生错误时的回调函数。
+        */ 
+        getJSON('/posts.json').then(function(posts){
+            // ....
+        }).catch(function(error){
+            // 处理getJSON和前一个回调函数运行时发生的错误
+            console.log('发生错误!',error);
+        });
+
+        p.then(val=>console.log('fulfilled:',val)).catch(err=>console.log('rejected',err))
+        // 等同于
+        p.then(val=>console.log('fulfilled',val)).then(null,err=>console.log('rejected:',err))
+    </script>
+</body>
+</html>
