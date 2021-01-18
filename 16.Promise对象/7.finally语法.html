@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.prototype.finally</title>
+</head>
+<body>
+    <script>
+        let promise = new Promise((resolve,reject)=>{
+            resolve('1')
+        });
+        promise.then((value)=>{
+           console.log(value)
+        }).finally(()=>{
+            console.log('finally')
+        })
+        function a(){
+            console.log('finally')
+        }
+        Promise.resolve(a()).then(()=>{})
+        Promise.resolve(2).then((value) => {console.log(value)}, () => {})
+        Promise.resolve(2).finally((value) => {console.log(value)})
+
+    </script>
+</body>
+</html>
