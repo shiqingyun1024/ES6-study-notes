@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>catch语法</title>
 </head>
+
 <body>
     <script>
         /*
           Promise.prototype.catch()方法是.then(null,rejection)或者.then(undefined,rejection)的别名，用于指定发生错误时的回调函数。
-        */ 
-        getJSON('/posts.json').then(function(posts){
+        */
+        getJSON('/posts.json').then(function (posts) {
             // ....
-        }).catch(function(error){
+        }).catch(function (error) {
             // 处理getJSON和前一个回调函数运行时发生的错误
-            console.log('发生错误!',error);
+            console.log('发生错误!', error);
         });
 
-        p.then(val=>console.log('fulfilled:',val)).catch(err=>console.log('rejected',err))
+        p.then(val => console.log('fulfilled:', val)).catch(err => console.log('rejected', err));
         // 等同于
-        p.then(val=>console.log('fulfilled',val)).then(null,err=>console.log('rejected:',err))
+        p.then(val => console.log('fulfilled', val)).then(null, err => console.log('rejected:', err));
+
+
+        // catch()方法之中，还能再抛出错误。而且能够被后面的catch方法捕获
+
+        // catch后面没有catch方法
+        const someAsyncThing = function () {
+            return new Promise(function (resolve, reject) {
+                // 下面一行会报错，因为x没有声明
+                resolve(x + 2);
+            });
+        };
+
+        someAsyncThing().then(function () {
+            return someOtherAsyncThing();
+        }).catch(function (error) {
+            console.log('oh no', error);
+            // 下面一行会报错，因为 y 没有声明
+            y + 2;
+        }).then(function () {
+            console.log('carry on');
+        });
+
+        // catch后面有catch方法
+        someAsyncThing().then(function () {
+            return someOtherAsyncThing();
+        }).catch(function (error) {
+            console.log('oh no', error); // oh no ReferenceError: x is not defined
+            // 下面一行会报错，因为 y 没有声明
+            y + 2;
+        }).catch(err=>{
+            // 接收上个catch报出的错误, 即y没有定义的错误
+            console.log(err); // ReferenceError: y is not defined
+        });
     </script>
 </body>
+
 </html>
