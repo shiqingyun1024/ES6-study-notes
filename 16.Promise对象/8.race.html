@@ -21,6 +21,19 @@
             .catch(console.error);
 
         // 上面代码中，如果 5 秒之内fetch方法无法返回结果，变量p的状态就会变为rejected，从而触发catch方法指定的回调函数。
+
+        const resolved = Promise.resolve(42);
+        const rejected = Promise.reject(-1);
+        const alsoRejected = Promise.reject(Infinity);
+
+        const race = Promise.race([resolved,rejected,alsoRejected]);
+        race.then(result=>{console.log(result)}).catch(error=>{console.log(error)});
+
+        // const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+        // allSettledPromise.then(function (results) {
+        //     console.log(results);
+        // });
     </script>
 </body>
 

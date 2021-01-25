@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.any()</title>
+</head>
+<body>
+    <script>
+        const resolved = Promise.resolve(42);
+        const rejected = Promise.reject(-1);
+        const alsoRejected = Promise.reject(Infinity);
+
+        const p = Promise.any([resolved,rejected,alsoRejected]);
+        const p2 = Promise.any([rejected,alsoRejected]);
+        p.then(result=>{console.log(result)}).catch(error=>{console.log(error)});
+        p2.
+        then(result=>{console.log(result)}).
+        catch(results=>{console.log(results)});
+    </script>
+</body>
+</html>
